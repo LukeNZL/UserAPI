@@ -15,20 +15,7 @@ class UserSerializer(serializers.ModelSerializer):
         user.save()
         return user
     
-class UserLoginSerializer(serializers.Serializer):
-    class Meta:
-        model=User
-        fields=['username','password']
-        
-    def validate(self, data):
-        username = data.get('username')
-        password = data.get('password')
 
-        user = authenticate(username=username, password=password)
-
-        if user:
-            return user
-        raise serializers.ValidationError('Wrong PW or Email')
     
 
         
