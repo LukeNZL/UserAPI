@@ -6,6 +6,7 @@ from .models import User
 from rest_framework.permissions import IsAuthenticated
 from rest_framework_simplejwt.tokens import RefreshToken
 from django.contrib.auth import authenticate
+from django.contrib.auth import authenticate, login, logout
 
 
 class UserList(APIView):
@@ -30,21 +31,38 @@ class UserDelete(APIView):
         user.delete()
         return Response({'message': 'User deleted!!!'})
     
+    
 class UserLogin(APIView):
     def post(self, request):
         username = request.data.get('username')
         password = request.data.get('password')
-
+        
         # Add any additional validations as per your requirements (e.g., check email format)
-
         user = authenticate(username=username, password=password)
 
         if user:
             refresh = RefreshToken.for_user(user)
-
+            serializer = UserSerializer(user)
             return Response({
+                'user':serializer.data,
                 'access_token': str(refresh.access_token),
                 'refresh_token': str(refresh),
-            })
+            }, status=200)
         
         return Response({'message': 'Wrong PW or Email'}, status=401)
+    
+class LogoutView(APIView):
+    def post(self, request):
+        logout(request)
+        return Response({'msg': 'Successfully Logged out'}, status=200)
+    
+class UserEdit(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def put(self, request):
+        user = request.user
+        serializer = UserSerializer(user, data=request.data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+            return Response({'message': 'User updated!!!'})
+        return Response(serializer.errors, status=400)
