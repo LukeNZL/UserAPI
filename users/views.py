@@ -31,9 +31,9 @@ class UserCreate(APIView):
 class UserDelete(APIView):
     #permission_classes = [IsAuthenticated]
 
-    def delete(self, request):
-        token = request.COOKIES.get('jwt')
-        
+    def post(self, request):
+        #token = request.COOKIES.get('jwt')
+        token = request.META.get('HTTP_AUTHORIZATION')
         if not token:
             raise AuthenticationFailed('Unauthenticated!')
         
@@ -43,7 +43,8 @@ class UserDelete(APIView):
             raise AuthenticationFailed('Unauthenticated!')
         
         user = User.objects.get(id=payload['id'])
-        
+        print("@@@@@@@")
+        print(user)
         user.delete()
         return Response({'message': 'User deleted!!!'})
     
@@ -79,20 +80,25 @@ class UserLogin(APIView):
 class UserView(APIView):
     def get(self, request):
         token = request.META.get('HTTP_AUTHORIZATION')
-        print(token)
+        #token = request.COOKIES.get('jwt')
+        
+        #print(token)
         if not token:
             raise AuthenticationFailed('Unauthenticated!')
-        
+
         try:
             payload = jwt.decode(token, 'secret', algorithms=['HS256'])
         except jwt.ExpiredSignatureError:
             raise AuthenticationFailed('Unauthenticated!!!!')
         
         user = User.objects.get(id=payload['id'])
-        print(user)
-        serializer=UserSerializer(user)
-        print(serializer.data)
-        return Response(serializer.data)
+        if user:
+            serializer=UserSerializer(user)
+            print(serializer.data)
+            return Response(serializer.data)
+        else:
+            return Response({'message': 'User not found!!!'})
+       
         
 """class UserView(APIView):
     def get(self, request):
@@ -120,16 +126,14 @@ class LogoutView(APIView):
         response.delete_cookie('jwt')
         response.data = {
             'message': 'Successfully Logged out',
-        }
-        
-        
+        }        
         return response
     
 class UserEdit(APIView):
     #permission_classes = [IsAuthenticated]
 
     def put(self, request):
-        token = request.COOKIES.get('jwt')
+        token = request.META.get('HTTP_AUTHORIZATION')
         
         if not token:
             raise AuthenticationFailed('Unauthenticated!')
