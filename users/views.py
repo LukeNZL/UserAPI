@@ -98,26 +98,7 @@ class UserView(APIView):
             return Response(serializer.data)
         else:
             return Response({'message': 'User not found!!!'})
-       
-        
-"""class UserView(APIView):
-    def get(self, request):
-        token = request.data.get['Authorization']
-        print(token)
-        if not token:
-            raise AuthenticationFailed('Unauthenticated!')
-        
-        try:
-            payload = jwt.decode(token, 'secret', algorithms=['HS256'])
-        except jwt.ExpiredSignatureError:
-            raise AuthenticationFailed('Unauthenticated!!!!')
-        
-        user = User.objects.get(id=payload['id'])
-        print(user)
-        serializer=UserSerializer(user)
-        print(serializer.data)
-        return Response(serializer.data)"""
-           
+
 
 
 class LogoutView(APIView):
