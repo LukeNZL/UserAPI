@@ -8,5 +8,5 @@ class User(AbstractUser):
     password = models.CharField(max_length=255)
     logged_in = models.BooleanField(default=False)
     
-    USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = []
+    #USERNAME_FIELD = 'email'
+    #REQUIRED_FIELDS = []
