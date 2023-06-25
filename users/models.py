@@ -11,3 +11,5 @@ class User(AbstractUser):
     #change this back once superuser is made and remove unique from username
     #USERNAME_FIELD = 'email' 
     #REQUIRED_FIELDS = []
+    
+
