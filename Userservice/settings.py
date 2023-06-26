@@ -47,7 +47,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'corsheaders',
-    'storages',
+    #'storages',
     'Userservice',
     'users',
     'gunicorn',
@@ -159,7 +159,7 @@ AUTH_USER_MODEL = 'users.User'
 CORS_ORIGIN_ALLOW_ALL = True
 CORS_ALLOW_CREDENTIALS = True
 
-if 'S3_BUCKET' in os.environ:
+"""if 'S3_BUCKET' in os.environ:
     # aws settings
     AWS_ACCESS_KEY_ID = os.environ['AWS_ACCESS_KEY_ID']
     print("IS IT HERE??")
@@ -200,4 +200,4 @@ else:
 STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
 
 MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')"""
