@@ -159,7 +159,7 @@ CORS_ALLOW_CREDENTIALS = True
 
 if 'S3_BUCKET' in os.environ:
     # aws settings
-    AWS_ACCESS_KEY_ID = os.environ['AWS_ACCESS_KEY_ID']
+    """AWS_ACCESS_KEY_ID = os.environ['AWS_ACCESS_KEY_ID']
     AWS_SECRET_ACCESS_KEY = os.environ['AWS_SECRET_ACCESS_KEY']
     AWS_STORAGE_BUCKET_NAME = os.environ['S3_BUCKET']
     AWS_S3_REGION_NAME = 'ap-southeast-2'
@@ -179,13 +179,32 @@ if 'S3_BUCKET' in os.environ:
     print("IS IT HERE??")
     print(STATIC_URL)
 
+    STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'"""
+    AWS_STORAGE_BUCKET_NAME = 'kiwinco-api-bucket'
+    AWS_S3_REGION_NAME = 'ap-southeast-2'
+
+    AWS_S3_ACCESS_KEY_ID = 'AKIA4TMQ4WVOPZAHTMP2'
+    AWS_S3_SECRET_ACCESS_KEY = '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'
+
+    AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
+    AWS_S3_OBJECT_PARAMETERS = {
+    'CacheControl': 'max-age=86400',
+    }
+    AWS_S3_FILE_OVERWRITE = False
+    #AWS_DEFAULT_ACL = 'public-read'
+    AWS_DEFAULT_ACL = None
+    AWS_LOCATION = 'static'
+    STATICFILES_DIRS = [
+    'static',
+    ]
+    STATIC_URL = 'https://%s/%s/' % (AWS_S3_CUSTOM_DOMAIN, AWS_LOCATION)
     STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 else:   
     STATIC_URL = '/static/'
     #STATIC_ROOT = 'static'
     #STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
-STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
+#STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
 
-#MEDIA_URL = '/media/'
-#MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
