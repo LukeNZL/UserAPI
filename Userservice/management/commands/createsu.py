@@ -2,7 +2,7 @@ import os
 #from django.contrib.auth.models import User
 from django.core.management.base import BaseCommand
 from users.models import User
-
+from users.managers import UserManager
 class Command(BaseCommand):
     help = "Creates a superuser."
 
@@ -21,3 +21,5 @@ class Command(BaseCommand):
             print("Superuser has been created.")
         else:
             print("Superuser exists")
+            
+            UserManager.create_superuser
