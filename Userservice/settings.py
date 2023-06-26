@@ -180,6 +180,7 @@ if 'S3_BUCKET' in os.environ:
     print(STATIC_URL)
 
     STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'"""
+    
     AWS_STORAGE_BUCKET_NAME = 'kiwinco-api-bucket'
     AWS_S3_REGION_NAME = 'ap-southeast-2'
 
