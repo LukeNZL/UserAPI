@@ -180,7 +180,7 @@ if 'S3_BUCKET' in os.environ:
     print(STATIC_URL)
 
     STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'"""
-    WS_ACCESS_KEY_ID = os.environ['AWS_ACCESS_KEY_ID']
+    AWS_ACCESS_KEY_ID = os.environ['AWS_ACCESS_KEY_ID']
     AWS_SECRET_ACCESS_KEY = os.environ['AWS_SECRET_ACCESS_KEY']
     AWS_STORAGE_BUCKET_NAME = os.environ['S3_BUCKET']
     
