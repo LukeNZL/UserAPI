@@ -192,6 +192,8 @@ if 'S3_BUCKET' in os.environ:
     STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 else:   
     STATIC_URL = '/static/'
+    STATIC_ROOT = 'static'
+
     # STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
