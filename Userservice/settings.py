@@ -180,11 +180,15 @@ if 'S3_BUCKET' in os.environ:
     print(STATIC_URL)
 
     STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'"""
-    AWS_STORAGE_BUCKET_NAME = 'kiwinco-api-bucket'
+    WS_ACCESS_KEY_ID = os.environ['AWS_ACCESS_KEY_ID']
+    AWS_SECRET_ACCESS_KEY = os.environ['AWS_SECRET_ACCESS_KEY']
+    AWS_STORAGE_BUCKET_NAME = os.environ['S3_BUCKET']
+    
+    #AWS_STORAGE_BUCKET_NAME = 'kiwinco-api-bucket'
     AWS_S3_REGION_NAME = 'ap-southeast-2'
 
-    AWS_S3_ACCESS_KEY_ID = 'AKIA4TMQ4WVOPZAHTMP2'
-    AWS_S3_SECRET_ACCESS_KEY = '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'
+    #AWS_S3_ACCESS_KEY_ID = 'AKIA4TMQ4WVOPZAHTMP2'
+    #AWS_S3_SECRET_ACCESS_KEY = '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'
 
     AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
     AWS_S3_OBJECT_PARAMETERS = {
